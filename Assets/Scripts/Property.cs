@@ -4,11 +4,15 @@ using UnityEngine.UI;
 
 public class Property : MonoBehaviour
 {
-    public static bool isPurchased;  //false (not purchased), true (purchased)
+    public bool isPurchased;  //false (not purchased), true (purchased)
     public int propertyLevel; //0 not purchased, 1 purchased, 2 upgrade....
     public int propertyCost;  //changes according to the property level
     public int propertyIncome;
     public int propertyCapacity;
+    public int propertyMaxCapacity;
+
+    public Material m_Material;
+    public CheckChangeColor buildingColor;
 
     private int propertyCostPurchase = 70;
     private int propertyCostLevel2 = 110;
@@ -19,7 +23,13 @@ public class Property : MonoBehaviour
     private int propertyIncomeLevel2 = 15;
     private int propertyIncomeLevel3 = 26;
     private int propertyIncomeLevel4 = 40;
-    private int propertyIncomeIncrease = 0; //Variable summed to GameManager MoneyPerSecond
+    public int propertyIncomeIncrease = 0; //Variable summed to GameManager MoneyPerSecond
+
+    private int propertyMaxCapacityLevel1 = 500;
+    private int propertyMaxCapacityLevel2 = 750;
+    private int propertyMaxCapacityLevel3 = 1000;
+    private int propertyMaxCapacityLevel4 = 2000;
+    private int propertyCurrentCapacity = 0; 
 
     private int maxLevel = 4;
     //Texts and strings for the Porperty Menu
@@ -51,6 +61,8 @@ public class Property : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //m_Material = GetComponent<Renderer>().material;
+
         isPurchased = false;
         propertyCost = propertyCostPurchase;
         propertyLevel = 0;
@@ -61,7 +73,7 @@ public class Property : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        UpdateCapacityText();
     }
 
     //In charge of displaying all the property's texts information correctly and changing the values
@@ -92,6 +104,7 @@ public class Property : MonoBehaviour
             propertyCost = propertyCostLevel2;
             propertyIncome = propertyIncomeLevel1;
             propertyIncomeIncrease = propertyIncome;
+            propertyMaxCapacity = propertyMaxCapacityLevel1;
 
             //Texts
             textName.text = sPropertyNameLevel1;
@@ -112,6 +125,7 @@ public class Property : MonoBehaviour
             propertyCost = propertyCostLevel3;
             propertyIncome = propertyIncomeLevel2;
             propertyIncomeIncrease = propertyIncomeLevel2-propertyIncomeLevel1;
+            propertyMaxCapacity = propertyMaxCapacityLevel2;
 
             //Texts
             textName.text = sPropertyNameLevel2;
@@ -131,6 +145,7 @@ public class Property : MonoBehaviour
             propertyCost = propertyCostLevel4;
             propertyIncome = propertyIncomeLevel3;
             propertyIncomeIncrease = propertyIncomeLevel3 - propertyIncomeLevel2;
+            propertyMaxCapacity = propertyMaxCapacityLevel3;
 
             //Texts
             textName.text = sPropertyNameLevel3;
@@ -148,6 +163,7 @@ public class Property : MonoBehaviour
             //Values
             propertyIncome = propertyIncomeLevel4;
             propertyIncomeIncrease = propertyIncomeLevel4 - propertyIncomeLevel3;
+            propertyMaxCapacity = propertyMaxCapacityLevel4;
 
             //Texts
             textName.text = sPropertyNameLevel4;
@@ -162,6 +178,8 @@ public class Property : MonoBehaviour
 
             textCost.text = "MAX";
         }
+
+        buildingColor.maxCapacity = propertyMaxCapacity;
         GameManager.MoneyPerSecond += propertyIncomeIncrease;
     }
 
@@ -185,5 +203,10 @@ public class Property : MonoBehaviour
         {
             //Property is at MAX Level
         }
+    }
+    
+    private void UpdateCapacityText()
+    {
+        textCapacity.text = buildingColor.capacity.ToString() + "/" + propertyMaxCapacity;
     }
 }

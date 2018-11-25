@@ -19,6 +19,14 @@ public class CameraMovement : MonoBehaviour {
         {
             transform.Translate(0f, 0f, Input.GetAxis("Mouse Y") * -speed, Space.World);
         }
-	}
+        if (Input.GetMouseButton(0) && Input.GetAxis("Mouse X") < 0 && transform.position.x < 11f)
+        {
+            transform.Translate(Input.GetAxis("Mouse X") * -speed, 0f, 0, Space.World);
+        }
+        else if (Input.GetMouseButton(0) && Input.GetAxis("Mouse X") > 0 && transform.position.x >= -10)
+        {
+            transform.Translate(Input.GetAxis("Mouse X") * -speed, 0f,0f , Space.World);
+        }
+    }
 
 }

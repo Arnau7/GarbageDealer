@@ -6,38 +6,60 @@ public class CheckChangeColor : MonoBehaviour {
 
     Material m_Material;
 
-    public static float Capacity;
-    public static float MaxCapacity;
+    public Property property;
+
+    public float capacity;
+    public float capacityIncrease;
+    public float maxCapacity;
+
+    private float time = 0.0f;
+    [SerializeField]
+    float updateTime = 1;
 
     void Start()
     {
         //Fetch the Material from the Renderer of the GameObject
         m_Material = GetComponent<Renderer>().material;
-       
     }
 
     private void Update()
     {
-        if(Property.isPurchased)
+        if (property == null)
+            return;
+        if(property.isPurchased)
             ChangeColor();
+
+        time += Time.deltaTime;
+
+        if (time > updateTime)
+        {
+            UpdateCapacity();
+            time -= updateTime;
+        }
     }
 
     public void ChangeColor()
     {
-        if(Capacity < MaxCapacity / 3)
+        if(capacity < maxCapacity / 3)
         {
             m_Material.color = Color.green;
-        }else if(Capacity < MaxCapacity / 3 * 2)
+        }else if(capacity < maxCapacity / 3 * 2)
         {
             m_Material.color = Color.yellow;
         }
-        else if (Capacity >= MaxCapacity)
+        else if (capacity >= maxCapacity)
         {
             m_Material.color = Color.red;
         }
-        else if (Capacity > MaxCapacity / 3 * 2)
+        else if (capacity > maxCapacity / 3 * 2)
         {
             m_Material.color = Color.gray;
         }
+    }
+
+    public void UpdateCapacity()
+    {
+        if(capacity <= maxCapacity-property.propertyIncomeIncrease)
+            capacity += property.propertyIncomeIncrease;
     }
 }

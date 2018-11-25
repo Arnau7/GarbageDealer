@@ -29,17 +29,23 @@ public class UI_PopUp : MonoBehaviour
     }
 
     //Input
-    private void OnMouseDown()
+    private void OnMouseUp()
     {
         isClicked = true;
-        if(!PopUpMessage)
+        if (!PopUpMessage)
+        {
             PopUpMessage = Instantiate(PopUpPrefab, FindObjectOfType<Canvas>().transform);
+            PopUpMessage.transform.SetAsFirstSibling();
+            PopUpMessage.GetComponent<Property>().buildingColor = GetComponent<CheckChangeColor>();
+            GetComponent<CheckChangeColor>().property = PopUpMessage.GetComponent<Property>();
+        }
+        
         PopUpMessage.SetActive(true);
     }
 
     private void CheckCameraPosition()
     {
-        PopUpMessage.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, 5, 0));
+        PopUpMessage.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, 4, 0));
     }
 
     private void CheckClickOutisde()
