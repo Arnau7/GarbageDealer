@@ -23,12 +23,13 @@ public class Property : MonoBehaviour
     private int propertyIncomeLevel2 = 15;
     private int propertyIncomeLevel3 = 26;
     private int propertyIncomeLevel4 = 40;
-    public int propertyIncomeIncrease = 0; //Variable summed to GameManager MoneyPerSecond
+    public int propertyIncomeIncrease = 0; //Variable summed to GameManager MoneyPerSecond variable
+    public int propertyCurrentIncome = 0; //Variable summed to CheckChangeColor UpdateCapacity function
 
-    private int propertyMaxCapacityLevel1 = 500;
-    private int propertyMaxCapacityLevel2 = 750;
-    private int propertyMaxCapacityLevel3 = 1000;
-    private int propertyMaxCapacityLevel4 = 2000;
+    private int propertyMaxCapacityLevel1 = 50; //500
+    private int propertyMaxCapacityLevel2 = 100; //750
+    private int propertyMaxCapacityLevel3 = 150;
+    private int propertyMaxCapacityLevel4 = 200;
     private int propertyCurrentCapacity = 0; 
 
     private int maxLevel = 4;
@@ -58,6 +59,8 @@ public class Property : MonoBehaviour
 
     public GameObject layoutCapacity, layoutIncome, layoutNextCapacity, layoutNextIncome;
 
+    public bool stopIncome = false;
+
     // Use this for initialization
     void Start()
     {
@@ -74,6 +77,7 @@ public class Property : MonoBehaviour
     void Update()
     {
         UpdateCapacityText();
+        PropertyFull();
     }
 
     //In charge of displaying all the property's texts information correctly and changing the values
@@ -103,6 +107,7 @@ public class Property : MonoBehaviour
             isPurchased = true; //CheckChangeColor now begins
             propertyCost = propertyCostLevel2;
             propertyIncome = propertyIncomeLevel1;
+            propertyCurrentIncome = propertyIncome;
             propertyIncomeIncrease = propertyIncome;
             propertyMaxCapacity = propertyMaxCapacityLevel1;
 
@@ -124,7 +129,11 @@ public class Property : MonoBehaviour
             //Values
             propertyCost = propertyCostLevel3;
             propertyIncome = propertyIncomeLevel2;
+            propertyCurrentIncome = propertyIncome;
             propertyIncomeIncrease = propertyIncomeLevel2-propertyIncomeLevel1;
+            if (IsCapacityFull())
+                propertyIncomeIncrease = propertyIncomeLevel2;
+
             propertyMaxCapacity = propertyMaxCapacityLevel2;
 
             //Texts
@@ -144,7 +153,10 @@ public class Property : MonoBehaviour
             //Values
             propertyCost = propertyCostLevel4;
             propertyIncome = propertyIncomeLevel3;
+            propertyCurrentIncome = propertyIncome;
             propertyIncomeIncrease = propertyIncomeLevel3 - propertyIncomeLevel2;
+            if (IsCapacityFull())
+                propertyIncomeIncrease = propertyIncomeLevel3;
             propertyMaxCapacity = propertyMaxCapacityLevel3;
 
             //Texts
@@ -162,7 +174,10 @@ public class Property : MonoBehaviour
         {
             //Values
             propertyIncome = propertyIncomeLevel4;
+            propertyCurrentIncome = propertyIncome;
             propertyIncomeIncrease = propertyIncomeLevel4 - propertyIncomeLevel3;
+            if (IsCapacityFull())
+                propertyIncomeIncrease = propertyIncomeLevel4;
             propertyMaxCapacity = propertyMaxCapacityLevel4;
 
             //Texts
@@ -193,6 +208,7 @@ public class Property : MonoBehaviour
                 GameManager.Money -= propertyCost;
                 propertyLevel++;
                 SetPropertyTexts();
+
             }
             else
             {
@@ -208,5 +224,25 @@ public class Property : MonoBehaviour
     private void UpdateCapacityText()
     {
         textCapacity.text = buildingColor.capacity.ToString() + "/" + propertyMaxCapacity;
+    }
+
+    private void PropertyFull()
+    {
+        if (IsCapacityFull() && stopIncome)
+        {
+            GameManager.MoneyPerSecond -= propertyCurrentIncome;
+            stopIncome = false;
+        }
+    }
+    private bool IsCapacityFull()
+    {
+        if(buildingColor.capacity == propertyMaxCapacity)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

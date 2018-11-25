@@ -59,7 +59,18 @@ public class CheckChangeColor : MonoBehaviour {
 
     public void UpdateCapacity()
     {
-        if(capacity <= maxCapacity-property.propertyIncomeIncrease)
-            capacity += property.propertyIncomeIncrease;
+        if (capacity < maxCapacity)
+        {
+            if (capacity + property.propertyCurrentIncome >= maxCapacity)
+            {
+                capacity = maxCapacity;
+                property.stopIncome = true;
+            }
+            else
+            {
+                capacity += property.propertyCurrentIncome;
+            }
+        }
+        
     }
 }
