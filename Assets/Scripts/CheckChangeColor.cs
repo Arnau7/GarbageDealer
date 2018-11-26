@@ -11,6 +11,7 @@ public class CheckChangeColor : MonoBehaviour {
     public float capacity;
     public float capacityIncrease;
     public float maxCapacity;
+    private float maxedCapacity;
 
     private float time = 0.0f;
     [SerializeField]
@@ -20,13 +21,14 @@ public class CheckChangeColor : MonoBehaviour {
     {
         //Fetch the Material from the Renderer of the GameObject
         m_Material = GetComponent<Renderer>().material;
+
     }
 
     private void Update()
     {
         if (property == null)
             return;
-        if(property.isPurchased)
+        else if(property.isPurchased)
             ChangeColor();
 
         time += Time.deltaTime;
@@ -64,12 +66,18 @@ public class CheckChangeColor : MonoBehaviour {
             if (capacity + property.propertyCurrentIncome >= maxCapacity)
             {
                 capacity = maxCapacity;
+                maxedCapacity = property.propertyMaxedCapacity;
                 property.stopIncome = true;
             }
             else
             {
                 capacity += property.propertyCurrentIncome;
             }
+        }
+        if(capacity == maxedCapacity && property.stopIncome)
+        {
+            GameManager.MoneyPerSecond -= property.propertyCurrentIncome;
+            property.stopIncome = false;
         }
         
     }

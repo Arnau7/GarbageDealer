@@ -39,7 +39,7 @@ public class GarbageSpawnManager : MonoBehaviour
 	
 		Instantiate(GarbagePrefab, Spawns[i].transform);
 		Spawns[i].GetComponent<Spawn>().Occupied = true;
-		Cool = 1;
+		Cool = 5;
 		
 	}
 }

@@ -26,10 +26,11 @@ public class Property : MonoBehaviour
     public int propertyIncomeIncrease = 0; //Variable summed to GameManager MoneyPerSecond variable
     public int propertyCurrentIncome = 0; //Variable summed to CheckChangeColor UpdateCapacity function
 
-    private int propertyMaxCapacityLevel1 = 50; //500
-    private int propertyMaxCapacityLevel2 = 100; //750
-    private int propertyMaxCapacityLevel3 = 150;
-    private int propertyMaxCapacityLevel4 = 200;
+    private int propertyMaxCapacityLevel1 = 500;
+    private int propertyMaxCapacityLevel2 = 750;
+    private int propertyMaxCapacityLevel3 = 1000;
+    private int propertyMaxCapacityLevel4 = 2000;
+    public int propertyMaxedCapacity = 2000; //Variable used in CheckChangeColor UpdateCapacity function
     private int propertyCurrentCapacity = 0; 
 
     private int maxLevel = 4;

@@ -45,7 +45,7 @@ public class UI_PopUp : MonoBehaviour
 
     private void CheckCameraPosition()
     {
-        PopUpMessage.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, 4, 0));
+        PopUpMessage.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, 4.5f, 0));
     }
 
     private void CheckClickOutisde()
