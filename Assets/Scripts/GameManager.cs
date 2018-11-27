@@ -23,8 +23,8 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Money = 10000;
-        MoneyPerSecond = 1;
+        Money = 0;
+        MoneyPerSecond = 0;
         RubbishMoney = 10;
         rubbishLevel = 1;
 
