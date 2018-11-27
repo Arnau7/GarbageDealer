@@ -246,4 +246,9 @@ public class Property : MonoBehaviour
             return false;
         }
     }
+    public void ClearRubbish()
+    {
+        buildingColor.capacity = 0;
+
+    }
 }
