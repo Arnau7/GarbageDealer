@@ -55,7 +55,7 @@ public class CheckChangeColor : MonoBehaviour {
         }
         else if (capacity > maxCapacity / 3 * 2)
         {
-            m_Material.color = Color.gray;
+            m_Material.color = new Color(255,165,0);
         }
     }
 

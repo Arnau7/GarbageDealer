@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UI_PopUp : MonoBehaviour
@@ -31,6 +32,7 @@ public class UI_PopUp : MonoBehaviour
     //Input
     private void OnMouseUp()
     {
+        if(IsPointerOverUIObject()) return;
         isClicked = true;
         if (!PopUpMessage)
         {
@@ -69,5 +71,14 @@ public class UI_PopUp : MonoBehaviour
                 Debug.Log("Out of Ray");
             }
         }
+    }
+    
+    private bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        System.Collections.Generic.List<RaycastResult> results = new System.Collections.Generic.List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
     }
 }
