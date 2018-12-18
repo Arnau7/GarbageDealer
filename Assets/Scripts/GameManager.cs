@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,12 +14,17 @@ public class GameManager : MonoBehaviour
     public int rubbishUpCost1, rubbishUpCost2, rubbishUpCost3, currentRubbishUpCost, nextRubbishMoney;
 
     private float time = 0.0f;
+    private float time2 = 0.0f;
     [SerializeField]
     float updateTime = 1;
+    float pollutionRestoreTime = 10;
 
     public Text textUpgrade1Ttitle, textUpgrade1Level, textUpgrade1Current, textUpgrade1Next, textUpgrade1Cost;
+    public Text pollutionText;
 
-    public GameObject PanelUpgrades;
+    public GameObject PanelUpgrades, gameOverPanel;
+
+    public static int Pollution = 0;
 
     // Use this for initialization
     void Start()
@@ -41,12 +47,32 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
+        time2 += Time.deltaTime;
 
         if (time > updateTime)
         {
             MoneyIncome();
+            pollutionText.text = Pollution.ToString() + "%";
             time -= updateTime;
         }
+
+        if (Pollution >= 100)
+        {
+            gameOverPanel.SetActive(true);
+            Time.timeScale = 0;
+        }
+
+        if(time2 > pollutionRestoreTime)
+        {
+            Pollution -= 1;
+            if(Pollution < 0)
+            {
+                Pollution = 0;
+            }
+            time2 -= pollutionRestoreTime;
+        }
+
+
     }
 
     private void MoneyIncome()
@@ -132,5 +158,16 @@ public class GameManager : MonoBehaviour
             PanelUpgrades.SetActive(false);
         else
             PanelUpgrades.SetActive(true);
+    }
+
+    public void Retry()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void Chetos()
+    {
+        Money = 10000;
+        MoneyPerSecond = 10;
     }
 }

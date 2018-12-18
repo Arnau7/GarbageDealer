@@ -13,6 +13,7 @@ public class Property : MonoBehaviour
 
     public Material m_Material;
     public CheckChangeColor buildingColor;
+    public Farm farm;
 
     private int propertyCostPurchase = 70;
     private int propertyCostLevel2 = 110;
@@ -250,5 +251,15 @@ public class Property : MonoBehaviour
     {
         buildingColor.capacity = 0;
 
+    }
+
+    //Used to transfer all current capacity to the Farm
+    public void TransferRubbishToFarm()
+    {
+
+        Farm.Capacity += buildingColor.capacity;
+        buildingColor.capacity = 0;
+        if(IsCapacityFull())
+            GameManager.MoneyPerSecond += propertyCurrentIncome;
     }
 }

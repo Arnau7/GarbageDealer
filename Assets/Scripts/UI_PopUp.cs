@@ -38,8 +38,18 @@ public class UI_PopUp : MonoBehaviour
         {
             PopUpMessage = Instantiate(PopUpPrefab, FindObjectOfType<Canvas>().transform);
             PopUpMessage.transform.SetAsFirstSibling();
-            PopUpMessage.GetComponent<Property>().buildingColor = GetComponent<CheckChangeColor>();
-            GetComponent<CheckChangeColor>().property = PopUpMessage.GetComponent<Property>();
+            
+            if (gameObject.tag == "Farm")
+            {
+                PopUpMessage.GetComponent<Farm>().farmColor = GetComponent<ChangeFarmColor>();
+                GetComponent<ChangeFarmColor>().farm = PopUpMessage.GetComponent<Farm>();
+            }
+            else
+            {
+                PopUpMessage.GetComponent<Property>().buildingColor = GetComponent<CheckChangeColor>();
+                GetComponent<CheckChangeColor>().property = PopUpMessage.GetComponent<Property>();
+            }
+           
         }
         
         PopUpMessage.SetActive(true);
