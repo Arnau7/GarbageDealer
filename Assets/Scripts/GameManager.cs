@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public static int Money;
     public static int MoneyPerSecond;
     public static int PropertiesNum;
-
+    
     public static int RubbishMoney;
     private int rubbishLevel;
     public int rubbishUpCost1, rubbishUpCost2, rubbishUpCost3, currentRubbishUpCost, nextRubbishMoney;
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Money = 0;
+        Money = 5000;
         MoneyPerSecond = 0;
         RubbishMoney = 10;
         rubbishLevel = 1;

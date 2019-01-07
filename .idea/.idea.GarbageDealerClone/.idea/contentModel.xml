@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\alumno\.Rider2018.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\alumno\.Rider2018.2\system\resharper-host\Local\Transient\ReSharperHost\v182\SolutionCaches\_GarbageDealerClone.-304372509.00" t="ExcludeRecursive" />
-    <e p="D:\ENTI\ADJ\GarbageDealerClone" t="IncludeRecursive">
+    <e p="C:\Users\Usuario\.Rider2018.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Usuario\.Rider2018.2\system\resharper-host\Local\Transient\ReSharperHost\v182\SolutionCaches\_GarbageDealerClone.312055010.00" t="ExcludeRecursive" />
+    <e p="E:\ENTI\Curs 18-19(4rt)\ADJ\GarbageDealerClone" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="GarbageSpawnManager.cs" t="Include" />
+        <e p="LowPolyWater_Pack" t="Include">
+          <e p="LowPoly Island" t="Include">
+            <e p="Credits.txt" t="Include" />
+          </e>
+          <e p="Scripts" t="Include">
+            <e p="Editor" t="Include">
+              <e p="GeneratePlane.cs" t="Include" />
+            </e>
+            <e p="LowPolyWater.cs" t="Include" />
+          </e>
+          <e p="Shaders" t="Include">
+            <e p="WaterShaded.shader" t="Include" />
+          </e>
+        </e>
         <e p="Scripts" t="Include">
           <e p="CameraMovement.cs" t="Include" />
+          <e p="ChangeFarmColor.cs" t="Include" />
           <e p="CheckChangeColor.cs" t="Include" />
+          <e p="Farm.cs" t="Include" />
           <e p="FloatingText.cs" t="Include" />
           <e p="FloatingTextAnim.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
@@ -19,6 +36,7 @@
           <e p="Spawn.cs" t="Include" />
           <e p="UI_PopUp.cs" t="Include" />
         </e>
+        <e p="Shipping.cs" t="Include" />
         <e p="Simple UI" t="Include">
           <e p="Fonts" t="Include">
             <e p="OFL.txt" t="Include" />

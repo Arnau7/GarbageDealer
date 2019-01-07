@@ -29,7 +29,7 @@ public class Rubbish : MonoBehaviour
             ShowFloatingText();
         }
 
-        transform.parent.gameObject.GetComponent<Spawn>().Occupied = false;
+        transform.parent.GetComponent<Spawn>().Occupied = false;
         Destroy(gameObject);
         GameManager.Money += GameManager.RubbishMoney;
     }

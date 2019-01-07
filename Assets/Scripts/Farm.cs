@@ -16,6 +16,7 @@ public class Farm : MonoBehaviour {
     private float time = 0.0f;
     float updateTime = 1;
 
+    public float modifier;
     // Use this for initialization
     void Start () {
         Capacity = 0;
@@ -71,6 +72,15 @@ public class Farm : MonoBehaviour {
             incinerateText.text = "Incinerate";
         }
 
+    }
+
+    public void Ship(Shipping shipping)
+    {
+        if (shipping.currentCapacity <= shipping.maxCapacity - Capacity * (0.1f + modifier) && shipping.onSea == false)
+        {
+            shipping.currentCapacity += Mathf.Floor(Capacity  * (0.1f + modifier));
+            Capacity -= Mathf.Floor(Capacity  * (0.1f + modifier));
+        }
     }
 
 }
