@@ -20,11 +20,15 @@ public class GameManager : MonoBehaviour
     float pollutionRestoreTime = 10;
 
     public Text textUpgrade1Ttitle, textUpgrade1Level, textUpgrade1Current, textUpgrade1Next, textUpgrade1Cost;
-    public Text pollutionText;
+    public Text pollutionText, seaPollutionText;
+    public Text shipCostText;
 
-    public GameObject PanelUpgrades, gameOverPanel;
+    public GameObject PanelUpgrades, gameOverPanel, infoPanel;
 
     public static int Pollution = 0;
+    public static int SeaPollution = 0;
+    public static bool hasShip;
+   
 
     // Use this for initialization
     void Start()
@@ -33,13 +37,15 @@ public class GameManager : MonoBehaviour
         MoneyPerSecond = 0;
         RubbishMoney = 10;
         rubbishLevel = 1;
-
+        //Pollution = 300;
         rubbishUpCost1 = 100;
         rubbishUpCost2 = 250;
         rubbishUpCost3 = 500;
         currentRubbishUpCost = rubbishUpCost1;
         nextRubbishMoney = 30;
-
+        Pollution = 0;
+        SeaPollution = 0;
+        hasShip = false;
         SetUpgradeTexts();
     }
 
@@ -53,13 +59,16 @@ public class GameManager : MonoBehaviour
         {
             MoneyIncome();
             pollutionText.text = Pollution.ToString() + "%";
+            seaPollutionText.text = SeaPollution.ToString() + "%";
             time -= updateTime;
         }
 
-        if (Pollution >= 100)
+        if (Pollution >= 100 || SeaPollution >= 100)
         {
-            gameOverPanel.SetActive(true);
+            Pollution = 100;
             Time.timeScale = 0;
+            gameOverPanel.SetActive(true);
+            
         }
 
         if(time2 > pollutionRestoreTime)
@@ -159,6 +168,14 @@ public class GameManager : MonoBehaviour
         else
             PanelUpgrades.SetActive(true);
     }
+    
+    public void InfoPanelFunc()
+    {
+        if (infoPanel.activeInHierarchy)
+            infoPanel.SetActive(false);
+        else
+            infoPanel.SetActive(true);
+    }
 
     public void Retry()
     {
@@ -169,5 +186,14 @@ public class GameManager : MonoBehaviour
     {
         Money = 10000;
         MoneyPerSecond = 10;
+    }
+
+    public void BuyShip(GameObject ship)
+    {
+        if (Money < 2000) return;
+        Money -= 2000;
+        shipCostText.text = "Unlocked";
+        ship.SetActive(true);
+        hasShip = true;
     }
 }

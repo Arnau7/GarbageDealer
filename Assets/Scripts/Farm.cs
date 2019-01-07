@@ -76,7 +76,7 @@ public class Farm : MonoBehaviour {
 
     public void Ship(Shipping shipping)
     {
-        if (shipping.currentCapacity <= shipping.maxCapacity - Capacity * (0.1f + modifier) && shipping.onSea == false)
+        if (shipping.currentCapacity <= shipping.maxCapacity - Capacity * (0.1f + modifier) && shipping.onSea == false && GameManager.SeaPollution < 100 && GameManager.hasShip)
         {
             shipping.currentCapacity += Mathf.Floor(Capacity  * (0.1f + modifier));
             Capacity -= Mathf.Floor(Capacity  * (0.1f + modifier));
