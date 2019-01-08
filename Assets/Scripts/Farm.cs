@@ -63,6 +63,7 @@ public class Farm : MonoBehaviour {
     {
         if (!isIncinerating)
         {
+            if (Capacity <= 0) return;
             isIncinerating = true;
             incinerateText.text = "Stop Incinerate";
         }

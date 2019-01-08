@@ -15,20 +15,25 @@ public class GameManager : MonoBehaviour
 
     private float time = 0.0f;
     private float time2 = 0.0f;
+    private float time3 = 0.0f;
     [SerializeField]
     float updateTime = 1;
     float pollutionRestoreTime = 10;
+    float seaPollutionRestoreTime = 13;
 
     public Text textUpgrade1Ttitle, textUpgrade1Level, textUpgrade1Current, textUpgrade1Next, textUpgrade1Cost;
     public Text pollutionText, seaPollutionText;
     public Text shipCostText;
+    public Text moneyGameOver;
 
-    public GameObject PanelUpgrades, gameOverPanel, infoPanel;
+    public GameObject PanelUpgrades, gameOverPanel, infoPanel, aboutPanel;
 
     public static int Pollution = 0;
     public static int SeaPollution = 0;
     public static bool hasShip;
-   
+
+    public GameObject slot1, slot2, slot3, slot4, slot5, slot6;
+    int messagesNum = 0;
 
     // Use this for initialization
     void Start()
@@ -54,6 +59,7 @@ public class GameManager : MonoBehaviour
     {
         time += Time.deltaTime;
         time2 += Time.deltaTime;
+
 
         if (time > updateTime)
         {
@@ -81,9 +87,22 @@ public class GameManager : MonoBehaviour
             time2 -= pollutionRestoreTime;
         }
 
-
+        if (time3 > seaPollutionRestoreTime)
+        {
+            SeaPollution -= 1;
+            if (SeaPollution < 0)
+            {
+                SeaPollution = 0;
+            }
+            time3 -= seaPollutionRestoreTime;
+        }
     }
-
+    private void GameOver()
+    {
+        moneyGameOver.text = Money.ToString();
+        Time.timeScale = 0;
+        gameOverPanel.SetActive(true);
+    }
     private void MoneyIncome()
     {
         Money += MoneyPerSecond;
@@ -163,23 +182,84 @@ public class GameManager : MonoBehaviour
 
     public void InteractPanelUpgrades()
     {
+
         if (PanelUpgrades.activeInHierarchy)
             PanelUpgrades.SetActive(false);
         else
+        {
+            if (infoPanel.activeInHierarchy || aboutPanel.activeInHierarchy)
+            {
+                infoPanel.SetActive(false);
+                aboutPanel.SetActive(false);
+            }
             PanelUpgrades.SetActive(true);
+        }
     }
     
     public void InfoPanelFunc()
     {
         if (infoPanel.activeInHierarchy)
+        {
             infoPanel.SetActive(false);
+            InfoPanelMessages(); //Updates messages displayed in the Info Panel
+        }
         else
+        {
+            if (PanelUpgrades.activeInHierarchy || aboutPanel.activeInHierarchy)
+            {
+                PanelUpgrades.SetActive(false);
+                aboutPanel.SetActive(false);
+            }
             infoPanel.SetActive(true);
+        }
+    }
+    public void AboutPanelFunc()
+    {
+        if (aboutPanel.activeInHierarchy)
+        {
+            aboutPanel.SetActive(false);
+        }
+        else
+        {
+            if (PanelUpgrades.activeInHierarchy || infoPanel.activeInHierarchy)
+            {
+                PanelUpgrades.SetActive(false);
+                infoPanel.SetActive(false);
+            }
+            aboutPanel.SetActive(true);
+        }
+    }
+    public void InfoPanelMessages()
+    {
+        if(messagesNum == 0)
+        {
+            slot1.SetActive(true);
+            slot2.SetActive(true);
+            slot3.SetActive(true);
+            slot4.SetActive(false);
+            slot5.SetActive(false);
+            slot6.SetActive(false);
+            messagesNum = 1;
+        }
+        else if(messagesNum == 1)
+        {
+            slot1.SetActive(false);
+            slot2.SetActive(false);
+            slot3.SetActive(false);
+            slot4.SetActive(true);
+            slot5.SetActive(true);
+            slot6.SetActive(true);
+            messagesNum = 0;
+        }
     }
 
     public void Retry()
     {
         SceneManager.LoadScene(0);
+    }
+    public void Exit()
+    {
+        Application.Quit();
     }
 
     public void Chetos()
