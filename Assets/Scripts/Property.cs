@@ -256,10 +256,12 @@ public class Property : MonoBehaviour
     //Used to transfer all current capacity to the Farm
     public void TransferRubbishToFarm()
     {
-
-        Farm.Capacity += buildingColor.capacity;
-        buildingColor.capacity = 0;
-        if(IsCapacityFull())
-            GameManager.MoneyPerSecond += propertyCurrentIncome;
+        if (Farm.Capacity < Farm.MaxCapacity - buildingColor.capacity)
+        {
+            Farm.Capacity += buildingColor.capacity;
+            buildingColor.capacity = 0;
+            if (IsCapacityFull())
+                GameManager.MoneyPerSecond += propertyCurrentIncome;
+        }
     }
 }

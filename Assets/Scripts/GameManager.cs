@@ -19,14 +19,14 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     float updateTime = 1;
     float pollutionRestoreTime = 10;
-    float seaPollutionRestoreTime = 13;
+    float seaPollutionRestoreTime = 15;
 
     public Text textUpgrade1Ttitle, textUpgrade1Level, textUpgrade1Current, textUpgrade1Next, textUpgrade1Cost;
     public Text pollutionText, seaPollutionText;
     public Text shipCostText;
     public Text moneyGameOver;
 
-    public GameObject PanelUpgrades, gameOverPanel, infoPanel, aboutPanel;
+    public GameObject PanelUpgrades, gameOverPanel, infoPanel, aboutPanel, shipButton, shipIncreaseText;
 
     public static int Pollution = 0;
     public static int SeaPollution = 0;
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Money = 5000;
+        Money = 0;
         MoneyPerSecond = 0;
         RubbishMoney = 10;
         rubbishLevel = 1;
@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
     {
         time += Time.deltaTime;
         time2 += Time.deltaTime;
+        time3 += Time.deltaTime;
 
 
         if (time > updateTime)
@@ -71,9 +72,9 @@ public class GameManager : MonoBehaviour
 
         if (Pollution >= 100 || SeaPollution >= 100)
         {
-            Pollution = 100;
-            Time.timeScale = 0;
-            gameOverPanel.SetActive(true);
+            pollutionText.text = Pollution.ToString() + "%";
+            seaPollutionText.text = SeaPollution.ToString() + "%";
+            GameOver();
             
         }
 
@@ -100,8 +101,9 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         moneyGameOver.text = Money.ToString();
-        Time.timeScale = 0;
         gameOverPanel.SetActive(true);
+        Time.timeScale = 0;
+        
     }
     private void MoneyIncome()
     {
@@ -275,5 +277,7 @@ public class GameManager : MonoBehaviour
         shipCostText.text = "Unlocked";
         ship.SetActive(true);
         hasShip = true;
+        shipButton.SetActive(true);
+        shipIncreaseText.SetActive(true);
     }
 }
